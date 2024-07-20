@@ -2,6 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .custom-textfield .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    @apply border-white;
+  }
+  .custom-textfield .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    @apply border-white;
+  }
+  .custom-textfield .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    @apply border-white;
+  }
+  .custom-textfield .MuiInputLabel-root {
+    @apply text-white;
+  }
+  .custom-textfield .MuiInputBase-input {
+    @apply text-white;
+  }
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -31,3 +54,4 @@ body {
     text-wrap: balance;
   }
 }
+
