@@ -14,18 +14,24 @@ export const createBook = async (req, res) => {
 
 // Get all books with pagination and search
 export const getAllBooks = async (req, res) => {
-  // console.log(req,"req")
   try {
-    const { page = 1, limit = 4, search = '' } = req.query;
+    const { page = 1, limit = 4, search = '', category = '' } = req.query;
+
+    console.log(req.query)
 
     const skip = (page - 1) * limit;
 
     const searchRegex = new RegExp(search, 'i');
     const query = {
-      $or: [
-        { title: searchRegex },
-        { author: searchRegex },
-        { category: searchRegex }
+      $and: [
+        {
+          $or: [
+            { title: searchRegex },
+            { author: searchRegex },
+            { category: searchRegex }
+          ]
+        },
+        category ? { category: category } : {}
       ]
     };
 
@@ -46,6 +52,7 @@ export const getAllBooks = async (req, res) => {
     res.status(500).json({ message: error.message, success: false });
   }
 };
+
 export const getAllBooksForAdmin = async (req, res) => {
   try {
     const books = await bookModel.find()

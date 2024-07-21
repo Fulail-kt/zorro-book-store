@@ -47,9 +47,12 @@ export const getAllBooksForAdmin = async () => {
   }
 };
 
-export const getAllBooks = async (page,limit,search) => {
+export const getAllBooks = async (page,limit,search,category) => {
   try {
-    const response = await axiosInstance.get(`/book?page=${page}&limit=${limit}&search=${search}`);
+    console.log("firstddde")
+    const response = await axiosInstance.get(`/book?page=${page}&limit=${limit}&search=${search}&category=${category}`);
+  
+    console.log(response,"re")
     if (response?.data?.success) {
     
       return response?.data;
