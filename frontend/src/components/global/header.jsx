@@ -34,7 +34,7 @@ const Header = () => {
           <Typography variant="h6" className="font-bold">
             BookHaven
           </Typography>
-          <div className="space-x-4">
+          <div className="md:space-x-4 flex items-center">
             <Link href='/'><Button color="inherit">
               <span className='hidden md:flex'>Home</span> <span className='md:hidden'><Home /></span>
               </Button></Link>
@@ -45,7 +45,7 @@ const Header = () => {
             <span className='hidden md:flex'>Profile</span> <span className='md:hidden'><Person /></span>
             </Button></Link>}
           </div>
-          <div className="flex space-x-2">
+          <div className="flex items-center md:space-x-2">
             { !userId ? (<Link href='/sign-in'>
                 <Button color="inherit">
                 
@@ -59,7 +59,7 @@ const Header = () => {
           )}
             <Link href='/cart'>
                 <Button color="inherit" startIcon={<CartIcon />}>
-                  Cart
+                  <span className='hidden md:flex' >Cart</span>
                 </Button>
             </Link>
           </div>
