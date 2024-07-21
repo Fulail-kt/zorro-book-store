@@ -3,6 +3,7 @@ import { bookModel } from "../models/bookModel.js";
 // Create a new book
 export const createBook = async (req, res) => {
   try {
+    console.log(req.body, "req.body")
     const book = new bookModel(req.body);
     await book.save();
     res.status(201).json({book,message:'create successfully' ,success:true});
@@ -53,6 +54,7 @@ export const getAllBooksForAdmin = async (req, res) => {
       success: true
     });
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: error.message, success: false });
   }
 };

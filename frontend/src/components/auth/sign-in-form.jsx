@@ -13,10 +13,9 @@ export default function SignIn() {
     console.log(data);
     const response=await login(data)
     if(response?.success){
-      console.log(response,"dddddddddddddddddddddddddd")
       localStorage.setItem('zr_token',response?.token)
       if(response?.role=='admin'){
-        navigate.replace('/dashboard')
+        navigate.replace('/books')
       }else{
         navigate.replace('/')
       }

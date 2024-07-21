@@ -32,8 +32,8 @@ const Cart = () => {
     if (response?.success) {
       setCartItems(prevItems => 
         prevItems.map(item => 
-          item._id === cartId 
-            ? { ...item, quantity: response.cart.find(cartItem => cartItem._id === cartId).quantity }
+          item?._id === cartId 
+            ? { ...item, quantity: response?.cart.find(cartItem => cartItem?._id === cartId).quantity }
             : item
         )
       );
@@ -58,9 +58,9 @@ const Cart = () => {
         <Typography className='text-center w-full'>Your cart is empty.</Typography>
       ) : ( <Grid item xs={12} md={8}>
             <Paper className="p-4">
-              {cartItems.map((item) => (
+              {cartItems?.map((item) => (
                 <CartItem 
-                  key={item._id} 
+                  key={item?._id} 
                   item={item} 
                   updateQuantity={updateCart}
                   removeFromCart={removeFromCart}
@@ -71,7 +71,7 @@ const Cart = () => {
           <Grid className='' item xs={12} md={4}>
             <Paper className="p-4">
               <Typography variant="h6" className="mb-4">Order Summary</Typography>
-              <Typography className="mb-2">Total: ${total?.toFixed(2)}</Typography>
+              <Typography className="mb-2">Total: ₹ {total?.toFixed(2)}</Typography>
               <Button 
                 variant="contained" 
                 color="primary" 

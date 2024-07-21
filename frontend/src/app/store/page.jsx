@@ -6,6 +6,7 @@ import {
 } from '@mui/material';
 import { getAllBooks } from '@/service/axios/end-points';
 import BookCard from '@/components/global/book-card';
+import Header from '@/components/global/header';
 
 const BooksPage = () => {
   const [books, setBooks] = useState([]);
@@ -43,6 +44,10 @@ const BooksPage = () => {
   };
 
   return (
+    <>
+    <Header/>
+    <div className='w-full h-16'></div>
+   
     <Container className="py-8">
       <Typography variant="h4" component="h1" className="mb-6 text-center font-bold">
         Book Store
@@ -87,6 +92,7 @@ const BooksPage = () => {
         </>
       )}
     </Container>
+    </>
   );
 };
 

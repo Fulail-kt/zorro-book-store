@@ -1,5 +1,5 @@
 import express from 'express';
-import { register, login, getUserByToken, addToCart, getUserById, updateCartQuantity, deleteFromCart, deleteToggle } from '../controllers/user.controller.js';
+import { register, login, getUserByToken, addToCart, getUserById, updateCartQuantity, deleteFromCart, deleteToggle, getAllUsers } from '../controllers/user.controller.js';
 import { check, param } from 'express-validator';
 import {auth} from '../middleware/auth.js';
 
@@ -26,7 +26,7 @@ router.post('/login', [
 
 // @route   GET /users
 // @desc    Get user by token
-router.get('/', auth, getUserByToken);
+router.get('/', auth, getAllUsers);
 router.put('/block/:id', auth, deleteToggle);
 router.get('/:id',bookIdValidationRules,auth, getUserById);
 

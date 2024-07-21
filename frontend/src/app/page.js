@@ -1,18 +1,27 @@
 'use client'
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {  Typography, Button, Card, CardContent, CardMedia, Container, Grid } from '@mui/material';
 import BookCard from '@/components/global/book-card';
 import Link from 'next/link';
 import Header from '@/components/global/header';
+import { getAllBooks } from '@/service/axios/end-points';
 
-const books = [
-  { id: 1, title: "The Great Gatsby", author: "F. Scott Fitzgerald", image: "/placeholder/200/300" },
-  { id: 2, title: "To Kill a Mockingbird", author: "Harper Lee", image: "/placeholder/200/300" },
-  { id: 3, title: "1984", author: "George Orwell", image: "/placeholder/200/300" },
-  { id: 4, title: "Pride and Prejudice", author: "Jane Austen", image: "/placeholder/200/300" },
-];
 
 export default function LandingPage() {
+
+  const [books,setBooks]=useState([])
+
+  const getAllBooksData=async()=>{
+    const response = await getAllBooks(1,4,"");
+    if(response?.success){
+      setBooks(response?.books);
+      
+    }
+  }
+
+  useEffect(()=>{
+getAllBooksData()
+  },[])
   return (
     <div className="min-h-screen flex flex-col">
       <Header/>
@@ -42,42 +51,16 @@ export default function LandingPage() {
               Featured Books
             </Typography>
             <Grid container spacing={4}>
-              {books.map((book) => (
-                <Grid item key={book._id} xs={12} sm={6} md={3}>
-                  <BookCard book={book}/>
-                </Grid>
-              ))}
-            </Grid>
+        {books?.slice(0, 4).map((book) => (
+          <Grid item key={book?._id} xs={12} sm={6} md={3}>
+            <BookCard book={book} />
+          </Grid>
+        ))}
+      </Grid>
           </Container>
         </section>
 
-        {/* <section className="bg-gray-100 py-16">
-          <Container maxWidth="lg">
-            <Grid container spacing={4} alignItems="center">
-              <Grid item xs={12} md={6}>
-                <Typography variant="h3" className="mb-4 font-bold">
-                  Why Choose BookHaven?
-                </Typography>
-                <Typography variant="body1" className="mb-4">
-                  At BookHaven, we believe in the power of stories to transform lives. Our curated collection 
-                  of books spans across genres, ensuring there's something for every reader.
-                </Typography>
-                <ul className="list-disc pl-6 mb-4">
-                  <li>Wide selection of books</li>
-                  <li>Competitive prices</li>
-                  <li>Fast and free shipping</li>
-                  <li>Expert recommendations</li>
-                </ul>
-                <Button variant="contained" size="large" className="bg-blue-600 hover:bg-blue-700">
-                  Learn More
-                </Button>
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <img src="/placeholder/500/400" alt="Bookstore interior" className="w-full rounded-lg shadow-lg" />
-              </Grid>
-            </Grid>
-          </Container>
-        </section> */}
+       
       </main>
 
       <footer className="bg-gray-800 text-white py-8">

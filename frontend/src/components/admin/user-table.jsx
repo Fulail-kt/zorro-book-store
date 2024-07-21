@@ -20,7 +20,7 @@ const UsersTable = () => {
   }, [page, rowsPerPage, search]);
 
   const fetchUsers = async () => {
-    const response = await getAllUsers(page, rowsPerPage, search);
+    const response = await getAllUsers();
     if (response?.success) {
       setUsers(response?.users);
     }
@@ -44,7 +44,7 @@ const UsersTable = () => {
     const response = await toggleUser(id);
     if (response?.success) {
       alert(response?.message);
-      setUsers(users.map(user => user._id === id ? response.user : user));
+      setUsers(users?.map(user => user._id === id ? response.user : user));
     }
   };
 
@@ -81,14 +81,14 @@ const UsersTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.map((user) => (
-              <TableRow key={user._id}>
-                <TableCell>{user.name}</TableCell>
-                <TableCell>{user.email}</TableCell>
-                <TableCell>{user.role}</TableCell>
-                <TableCell>{user.status}</TableCell>
+            {users?.map((user) => (
+              <TableRow key={user?._id}>
+                <TableCell>{user?.name}</TableCell>
+                <TableCell>{user?.email}</TableCell>
+                <TableCell>{user?.role}</TableCell>
+                <TableCell>{user?.isDeleted ? "InActive" : 'Active'}</TableCell>
                 <TableCell>
-                  <IconButton onClick={(e) => handleMenuOpen(e, user._id)}>
+                  <IconButton onClick={(e) => handleMenuOpen(e, user?._id)}>
                     <MoreVertIcon />
                   </IconButton>
                 </TableCell>
@@ -117,7 +117,7 @@ const UsersTable = () => {
           handleBlockUser(selectedUserId);
           handleMenuClose();
         }}>
-          Block
+          {users.find(user => user._id === selectedUserId)?.isDeleted ? "Unblock" : "Block"}
         </MenuItem>
       </Menu>
     </div>

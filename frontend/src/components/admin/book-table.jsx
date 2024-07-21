@@ -8,6 +8,8 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import BookForm from '@/components/admin/book-form';
 import { addBook, deleteBook, getAllBooksForAdmin, updateBook } from '@/service/axios/end-points';
 
+import { storage } from "../../service/firebase/firebase.config";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const BooksTable = () => {
   const [books, setBooks] = useState([]);
@@ -25,7 +27,7 @@ const BooksTable = () => {
 
   const fetchBooks = async () => {
     const response = await getAllBooksForAdmin();
-    if(response?.success){
+    if (response?.success) {
       setBooks(response?.books)
     }
   };
@@ -55,19 +57,26 @@ const BooksTable = () => {
   };
 
   const handleSubmit = async (data) => {
-    console.log(data)
-    if (currentBook) {
+    let imageUrl = '';
+    if (data.image && data.image[0]) {
+      const file = data.image[0];
+      const fileRef = ref(storage, `files/${Date.now()}_${file.name}`);
+      const snapshot = await uploadBytes(fileRef, file);
+      imageUrl = await getDownloadURL(snapshot.ref);
+    }
 
-      const response = await updateBook(currentBook._id, data);
+    if (currentBook) {
+      // Update existing book
+      const response = await updateBook(currentBook._id, { ...data, image: imageUrl || currentBook.image });
       if (response.success) {
         alert(response.message);
-        setBooks((prev) => prev.map((book) => 
+        setBooks((prev) => prev.map((book) =>
           book._id === currentBook._id ? response.book : book
         ));
       }
     } else {
       // Add new book
-      const response = await addBook(data);
+      const response = await addBook({ ...data, image: imageUrl });
       if (response.success) {
         alert(response.message);
         setBooks((prev) => [...prev, response.book]);
@@ -78,7 +87,7 @@ const BooksTable = () => {
 
   const handleDelete = async (id) => {
     const response = await deleteBook(id);
-    if(response?.success){
+    if (response?.success) {
       alert(response?.message);
       setBooks(books.filter(book => book._id !== id));
     }
@@ -139,7 +148,7 @@ const BooksTable = () => {
         </Table>
       </TableContainer>
       <TablePagination
-      className='bg-gray-800 text-white'
+        className='bg-gray-800 text-white'
         component="div"
         count={books?.length}
         variant='outline'
@@ -150,22 +159,21 @@ const BooksTable = () => {
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
       <Dialog open={openModal} onClose={handleCloseModal}>
-      <IconButton
+        <IconButton
           aria-label="close"
           onClick={handleCloseModal}
           sx={{
             position: 'absolute',
             right: 8,
-            color:'white',
             top: 8,
+            color: 'white',
             color: (theme) => theme.palette.grey[500],
           }}
         >
-        X
+          X
         </IconButton>
         <DialogContent className='bg-gray-800 text-white'>
-        <BookForm initialBook={currentBook} onSubmit={handleSubmit} />
-
+          <BookForm initialBook={currentBook} onSubmit={handleSubmit} />
         </DialogContent>
       </Dialog>
       <Menu

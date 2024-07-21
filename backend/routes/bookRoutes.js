@@ -29,13 +29,13 @@ const bookIdValidationRules = [
 // Create a new book
 router.post('/', bookValidationRules, createBook);
 
+// Get all books for admin
+router.get('/admin', getAllBooksForAdmin);
 // router.get('/search', getAllBooks);
 // Get all books with pagination and search
 router.get('/', getAllBooks);
 // Get book by Id
 router.get('/:id',bookIdValidationRules, getBookById);
-// Get all books for admin
-router.get('/admin', getAllBooksForAdmin);
 
 // Update a book
 router.put('/:id', bookIdValidationRules, bookValidationRules, updateBook);

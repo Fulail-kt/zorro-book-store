@@ -31,7 +31,9 @@ export const create = async (user) => {
 export const getAllBooksForAdmin = async () => {
   try {
     
+    console.log("first")
     const response = await axiosInstance.get(`/book/admin`);
+    console.log("seco",response)
     if (response?.data?.success) {
       return response?.data;
     } else {
@@ -169,6 +171,7 @@ export const getUserById = async (id) => {
 export const getAllUsers = async () => {
   try {
     const response = await axiosInstance.get("/user");
+    console.log(response,"suers")
     if (response?.data?.success) {
       return response?.data;
     } else {
@@ -213,6 +216,63 @@ export const deleteFromCart = async (id,cartId) => {
   try {
     const response = await axiosInstance.delete(`user/delete/${id}/${cartId}`);
     console.log(response, "de")
+    if (response?.data?.success) {
+      return response?.data;
+    } else {
+      window.alert(response?.data.message);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+
+export const createOrder = async (id, order) => {
+  try {
+    const response = await axiosInstance.post(`/order/${id}`, order);
+    console.log(response, "de--")
+    if (response?.data?.success) {
+      return response?.data;
+    } else {
+      window.alert(response?.data.message);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+export const getOrderByUserId = async (id) => {
+  try {
+    const response = await axiosInstance.get(`/order/user/${id}`);
+    if (response?.data?.success) {
+      return response?.data;
+    } else {
+      window.alert(response?.data.message);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getAllOrders = async () => {
+  try {
+    const response = await axiosInstance.get(`/order`);
+    if (response?.data?.success) {
+      return response?.data;
+    } else {
+      window.alert(response?.data.message);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+export const updateOrderStatus = async (id, status) => {
+  try {
+    const response = await axiosInstance.put(`/order/${id}`, {status});
     if (response?.data?.success) {
       return response?.data;
     } else {

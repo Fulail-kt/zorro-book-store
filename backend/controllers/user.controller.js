@@ -84,7 +84,7 @@ export const deleteToggle=async (req,res)=>{
     const user=await userModel.findById(req.params.id);
     user.isDeleted=!user.isDeleted;
     user.save()
-    res.json({success:true,message: user.isDeleted?'user account soft deleted':'restored user account'})
+    res.json({ user, success:true,message: user.isDeleted?'user account soft deleted':'restored user account'})
   } catch (error) {
     
   }
@@ -102,6 +102,20 @@ export const getUserByToken = async (req, res) => {
     res.status(500).json({ message: 'retrieve user failed', success: false });
   }
 };
+
+
+export const getAllUsers = async (req, res) => {
+  try {
+    const users = await userModel.find({role:'customer'}).select('-password')
+    res.json({ users, message: 'successfully retrieved', success: true });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ message: 'retrieve user failed', success: false });
+  }
+};
+
+
+
 export const getUserById = async (req, res) => {
   try {
     const user = await userModel.findById(req.params.id).select('-password').populate({path:'cart.productId',model:'Book'});

@@ -14,6 +14,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { addToCart, getBookById } from '@/service/axios/end-points';
 import { jwtDecode } from 'jwt-decode';
+import Header from '@/components/global/header';
 
 const BookDetails = ({ params }) => {
     const id=params.id
@@ -56,15 +57,22 @@ const BookDetails = ({ params }) => {
   };
 
   return (
+    <>
+    <Header/>
+    <div className='h-16 w-full'></div>
+  
     <Container className="py-8">
       <Paper elevation={3} className="p-6">
         <Grid container spacing={4}>
-          <Grid item xs={12} md={4}>
-            <img
-              src={book?.Image}
-              alt={book?.title}
-              className="w-full h-auto rounded-lg shadow-lg"
-            />
+          <Grid item xs={12} className='flex justify-center' md={4}>
+            <div className='w-full  flex justify-center items-center'>
+                <img
+                height={10}
+                  src={book?.image}
+                  alt={book?.title}
+                  className="w-44  rounded-lg shadow-lg"
+                />
+            </div>
           </Grid>
           <Grid item xs={12} md={8}>
             <Typography variant="h4" component="h1" className="mb-4">
@@ -108,6 +116,7 @@ const BookDetails = ({ params }) => {
         </Grid>
       </Paper>
     </Container>
+    </>
   );
 };
 
