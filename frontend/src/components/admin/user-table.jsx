@@ -59,7 +59,7 @@ const UsersTable = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="p-4 px-8">
       <div className="flex justify-between mb-4">
         <TextField
           label="Search"

@@ -10,9 +10,9 @@ const inter = Inter({ subsets: ["latin"] });
 export default function RootLayout({ children }) {
   return (
    <>
+        <ProtectedRoute allowedRole='admin'>
         <AdminHeader/>
         <div className="h-16 w-full"></div>
-        <ProtectedRoute allowedRole='admin'>
         {children}
         </ProtectedRoute>
       </>

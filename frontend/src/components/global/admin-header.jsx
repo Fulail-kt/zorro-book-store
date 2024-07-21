@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { AppBar, Toolbar, Typography, Button, Avatar } from '@mui/material';
 import Link from 'next/link';
 import { jwtDecode } from 'jwt-decode';
-import { Book, Logout, VerifiedUser } from '@mui/icons-material';
+import { Book, FilePresent, Logout, Person3, VerifiedUser } from '@mui/icons-material';
 
 const AdminHeader = () => {
   const [userId, setUserId] = useState(null);
@@ -35,10 +35,12 @@ const AdminHeader = () => {
           <div className="hidden md:flex space-x-4">
             <Link href='/books'>  <Button className='hidden md:block' color="inherit">  Books</Button></Link>
             <Link href='/users'><Button color="inherit">Users</Button></Link>
+            <Link href='/orders'><Button color="inherit">Orders</Button></Link>
           </div>
           <div className="flex md:hidden space-x-4">
             <Link href='/books'><span ><Book/></span>  </Link>
-            <Link href='/users'><VerifiedUser/></Link>
+            <Link href='/users'><Person3/></Link>
+            <Link href='/orders'><FilePresent/></Link>
           </div>
           <div className="flex space-x-2">
             {userId && (

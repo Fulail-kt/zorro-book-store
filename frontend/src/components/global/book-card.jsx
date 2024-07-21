@@ -14,7 +14,7 @@ const BookCard = ({book}) => {
           alt={book.title}
           className="h-44 object-cover"
         />
-        <CardContent className="flex-grow">
+        <CardContent className="flex-grow bg-orange-300">
           <Typography
             gutterBottom
             variant="h6"

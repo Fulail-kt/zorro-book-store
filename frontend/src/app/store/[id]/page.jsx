@@ -62,9 +62,9 @@ const BookDetails = ({ params }) => {
     <div className='h-16 w-full'></div>
   
     <Container className="py-8">
-      <Paper elevation={3} className="p-6">
+      <Paper elevation={3} className="p-6 bg-gray-300">
         <Grid container spacing={4}>
-          <Grid item xs={12} className='flex justify-center' md={4}>
+          <Grid item xs={12} className='flex  justify-center' md={4}>
             <div className='w-full  flex justify-center items-center'>
                 <img
                 height={10}
