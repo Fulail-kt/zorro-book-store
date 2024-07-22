@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useId, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
   Container, 
   Typography, 
@@ -15,6 +15,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { addToCart, getBookById } from '@/service/axios/end-points';
 import { jwtDecode } from 'jwt-decode';
 import Header from '@/components/global/header';
+import { toast } from 'sonner';
 
 const BookDetails = ({ params }) => {
     const id=params.id
@@ -46,7 +47,7 @@ const BookDetails = ({ params }) => {
         console.log('Added to cart:', book.title);
 
     }else{
-        alert('Please login to add to cart')
+        toast.success('Please login to add to cart')
     }
   };
 

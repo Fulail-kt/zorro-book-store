@@ -32,7 +32,7 @@ export const createOrder = async (req, res) => {
 
     await userModel.findByIdAndUpdate(userId, { $set: { cart: [] } });
 
-    res.json({ order, message: 'Order created successfully and cart cleared', success: true });
+    res.json({ order, message: 'Order placed successfully', success: true });
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ message: err.message || "An error occurred" ,success:false});

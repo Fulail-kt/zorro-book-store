@@ -12,7 +12,7 @@ export default function LandingPage() {
   const [books,setBooks]=useState([])
 
   const getAllBooksData=async()=>{
-    const response = await getAllBooks(1,4,"");
+    const response = await getAllBooks(1,4,"",'');
     if(response?.success){
       setBooks(response?.books);
       

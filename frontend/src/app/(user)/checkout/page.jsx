@@ -27,9 +27,7 @@ const Checkout = () => {
 
   const navigate=useRouter()
   useEffect(() => {
-    if(cartItems.length===0){
-      navigate.replace('/')
-    }
+    
     const token = localStorage.getItem("zr_token");
     if (token) {
       const decode = jwtDecode(token);
@@ -42,6 +40,10 @@ const Checkout = () => {
     const response = await getUserById(id);
     if (response?.success) {
       setCartItems(response?.user?.cart);
+    }
+
+    if(response?.user?.cart?.length===0){
+      navigate.replace('/')
     }
   };
 
