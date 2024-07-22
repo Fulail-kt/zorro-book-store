@@ -62,6 +62,10 @@ export const login = async (req, res) => {
 
     console.log(user,"user who log")
 
+    if(user.isDeleted){
+      return res.status(400).json({ message: 'This account blocked by admin please contact admin', success: false });
+    }
+
     const payload = { id: user._id ,role:user.role };
 
     jwt.sign(
