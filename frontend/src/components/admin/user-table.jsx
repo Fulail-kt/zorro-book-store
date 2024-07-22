@@ -6,6 +6,7 @@ import {
 } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { getAllUsers, blockUser, toggleUser } from '@/service/axios/end-points';
+import { toast } from 'sonner';
 
 const UsersTable = () => {
   const [users, setUsers] = useState([]);
@@ -43,7 +44,7 @@ const UsersTable = () => {
   const handleBlockUser = async (id) => {
     const response = await toggleUser(id);
     if (response?.success) {
-      alert(response?.message);
+      toast.success(response?.message);
       setUsers(users?.map(user => user._id === id ? response.user : user));
     }
   };

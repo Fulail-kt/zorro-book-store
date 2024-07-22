@@ -10,6 +10,7 @@ import { addBook, deleteBook, getAllBooksForAdmin, updateBook } from '@/service/
 
 import { storage } from "../../service/firebase/firebase.config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { toast } from 'sonner';
 
 const BooksTable = () => {
   const [books, setBooks] = useState([]);
@@ -69,7 +70,7 @@ const BooksTable = () => {
       // Update existing book
       const response = await updateBook(currentBook._id, { ...data, image: imageUrl || currentBook.image });
       if (response.success) {
-        alert(response.message);
+        toast.success(response.message);
         setBooks((prev) => prev.map((book) =>
           book._id === currentBook._id ? response.book : book
         ));
@@ -78,7 +79,7 @@ const BooksTable = () => {
       // Add new book
       const response = await addBook({ ...data, image: imageUrl });
       if (response.success) {
-        alert(response.message);
+        toast.success(response.message);
         setBooks((prev) => [...prev, response.book]);
       }
     }
@@ -88,7 +89,7 @@ const BooksTable = () => {
   const handleDelete = async (id) => {
     const response = await deleteBook(id);
     if (response?.success) {
-      alert(response?.message);
+      toast.success(response?.message);
       setBooks(books.filter(book => book._id !== id));
     }
   };
